@@ -14,10 +14,3 @@ spec:
   serviceAccountName: my-sa
   pipelineRef:
     name: test-pipeline
-  # params:
-  #   - name: dockerfile-path
-  #     value: "./Dockerfile"
-  #   - name: image-url
-  #     value: "chatbot/api"
-  #   - name: path-to-context
-  #     value: "workspace/tekton-pvc"

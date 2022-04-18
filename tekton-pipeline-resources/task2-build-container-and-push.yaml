@@ -12,9 +12,6 @@ spec:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
       workingDir: $(workspaces.tekton-pvc.path)
-      # volumeMounts:
-      #   - name: docker-configmap
-      #     mountPath: /kaniko/.docker/
       args:
         - --dockerfile=$(workspaces.tekton-pvc.path)/Dockerfile
         - --destination=mokpolar/tekton-pipelnie-test:$(params.commitshashort)
