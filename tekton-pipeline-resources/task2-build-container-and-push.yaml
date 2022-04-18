@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-container-and-push
+spec:
+  workspaces:
+  - name: tekton-pvc
+  params:
+    - name: commitshashort
+      type: string
+  steps:
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:latest
+      workingDir: $(workspaces.tekton-pvc.path)
+      # volumeMounts:
+      #   - name: docker-configmap
+      #     mountPath: /kaniko/.docker/
+      args:
+        - --dockerfile=$(workspaces.tekton-pvc.path)/Dockerfile
+        - --destination=mokpolar/tekton-pipelnie-test:$(params.commitshashort)
+        - --context=$(workspaces.tekton-pvc.path)

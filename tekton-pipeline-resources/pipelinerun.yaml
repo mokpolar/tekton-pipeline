@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: test-pipelinerun
+spec:
+  resources:
+    - name: git-pipelineresource
+      resourceRef:
+        name: git-pipelineresource
+  workspaces:
+  - name: tekton-pvc
+    persistentvolumeclaim:
+      claimName: efs-pvc
+  serviceAccountName: my-sa
+  pipelineRef:
+    name: test-pipeline
+  # params:
+  #   - name: dockerfile-path
+  #     value: "./Dockerfile"
+  #   - name: image-url
+  #     value: "chatbot/api"
+  #   - name: path-to-context
+  #     value: "workspace/tekton-pvc"

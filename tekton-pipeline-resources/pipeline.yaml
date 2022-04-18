@@ -1,0 +1,35 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: test-pipeline
+spec:
+  resources:
+    - name: git-pipelineresource
+      type: git
+  results:
+    - name: commitshashort
+      value: "$(tasks.git-clone.results.commitshashort)"
+  workspaces:
+    - name: tekton-pvc
+  tasks:
+    - name: git-clone
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: tekton-pvc
+          workspace: tekton-pvc
+      resources:
+        inputs:
+          - name: git-pipelineresource
+            resource: git-pipelineresource
+    - name: build-container-and-push
+      taskRef:
+        name: build-container-and-push
+      runAfter: 
+        - "git-clone"
+      params:
+        - name: commitshashort
+          value: "$(tasks.git-clone.results.commitshashort)"
+      workspaces:
+        - name: tekton-pvc
+          workspace: tekton-pvc

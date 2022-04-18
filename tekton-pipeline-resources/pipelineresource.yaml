@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: git-pipelineresource
+spec:
+  type: git
+  params:
+    - name: deleteExisting
+      value: "true"
+    - name: revision
+      value: main
+    - name: url
+      value: https://github.com/mokpolar/tekton-pipeline

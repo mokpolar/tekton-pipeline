@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: git-clone
+spec:
+  results:
+  - name: commitshashort
+  workspaces:
+  - name: tekton-pvc
+  resources:
+    inputs:
+      - name: git-pipelineresource
+        type: git
+        targetPath: tekton-pvc
+  steps:
+    - name: generate-tag
+      image: bitnami/git
+      script: |
+        #!/usr/bin/env bash
+        COMMIT_SHA_SHORT="$(git rev-parse --short HEAD | tr -d '\n')"
+        echo -n "$COMMIT_SHA_SHORT" > $(results.commitshashort.path)
+      timeout: 20s    
