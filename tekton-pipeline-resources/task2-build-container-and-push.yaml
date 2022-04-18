@@ -3,6 +3,7 @@ kind: Task
 metadata:
   name: build-container-and-push
 spec:
+
   workspaces:
   - name: tekton-pvc
   params:
@@ -14,5 +15,15 @@ spec:
       workingDir: $(workspaces.tekton-pvc.path)
       args:
         - --dockerfile=$(workspaces.tekton-pvc.path)/Dockerfile
-        - --destination=mokpolar/tekton-pipelnie-test:$(params.commitshashort)
+        - --destination=mokpolar/tekton-pipeline-test:$(params.commitshashort)
         - --context=$(workspaces.tekton-pvc.path)
+      volumeMounts:
+        - name: my-secret
+          mountPath: /kaniko/.docker/
+  volumes:
+    - name: my-secret
+      secret:
+        secretName: my-secret
+        items:
+        - key: .dockerconfigjson
+          path: config.json

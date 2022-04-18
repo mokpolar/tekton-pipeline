@@ -17,6 +17,10 @@ spec:
       image: bitnami/git
       script: |
         #!/usr/bin/env bash
+        cd /workspace/tekton-pvc
+
+        git config --global --add safe.directory /workspace/tekton-pvc
+
         COMMIT_SHA_SHORT="$(git rev-parse --short HEAD | tr -d '\n')"
         echo -n "$COMMIT_SHA_SHORT" > $(results.commitshashort.path)
       timeout: 20s    

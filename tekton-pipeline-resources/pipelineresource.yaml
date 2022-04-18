@@ -10,4 +10,4 @@ spec:
     - name: revision
       value: main
     - name: url
-      value: https://github.com/mokpolar/tekton-pipeline
+      value: # mygithub url
