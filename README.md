@@ -6,7 +6,7 @@ https://mokpolar.tistory.com
 
 ```bash
 # except pipelinerun.yaml
-kubectl apply -f ./
+kubectl apply -f ./tekton-pipeline-resources/
 
-kubectl apply -f ./pipelinerun.yaml
+kubectl apply -f ./tekton-pipeline-resources/pipelinerun.yaml
 ```
