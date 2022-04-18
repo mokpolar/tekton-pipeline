@@ -1,5 +1,6 @@
 # tekton-pipeline
-The kubernetes resources in this repository are sample code of Tekton Pipeline written for blog mokpolar.tistory.com
+The kubernetes resources in this repository are sample code of Tekton Pipeline written for blog   
+https://mokpolar.tistory.com
 
 ## How to use
 
